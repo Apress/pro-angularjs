@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>Directives</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+            .controller("defaultCtrl", function ($scope, $location) {
+
+                $scope.message = "Tap Me!";
+
+            }).directive("tap", function () {
+                return function (scope, elem, attrs) {
+                    elem.on("touchstart touchend", function () {
+                        scope.$apply(attrs["tap"]);
+                    });
+                }
+            });
+    </script>
+</head>
+<body>
+    <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+        <div class="well" tap="message = 'Tapped!'">
+            {{message}}
+        </div>
+    </div>
+</body>
+</html>

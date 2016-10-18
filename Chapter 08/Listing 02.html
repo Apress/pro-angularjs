@@ -1,0 +1,23 @@
+<h2>Check out now</h2>
+<p>Please enter your details, and we'll ship your goods right away!</p>
+
+<form name="shippingForm" novalidate>
+    <div class="well">
+        <h3>Ship to</h3>
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" ng-model="data.shipping.name" required />
+        </div>
+
+        <h3>Address</h3>
+
+        <div class="form-group">
+            <label>Street Address</label>
+            <input class="form-control" ng-model="data.shipping.street" required />
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary">Complete order</button>
+        </div>
+    </div>
+</form>

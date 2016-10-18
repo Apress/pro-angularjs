@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>Forms</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+            .controller("defaultCtrl", function ($scope) {});
+    </script>
+</head>
+<body>
+    <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+        <form name="myForm" novalidate>
+            <div class="well">
+                <div class="checkbox">
+                    <label>
+                        <input name="sample" type="checkbox" ng-model="inputValue"
+                               ng-true-value="Hurrah!" ng-false-value="Boo!">
+                        This is a checkbox
+                    </label>
+                </div>
+            </div>
+            <div class="well">
+                <p>Model Value: {{inputValue}}</p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

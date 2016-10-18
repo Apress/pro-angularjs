@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>Promises</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+        .directive("promiseWorker", function ($q) {
+            var deferred = [$q.defer(), $q.defer()];
+            var promises = [deferred[0].promise, deferred[1].promise];
+            return {
+                link: function (scope, element, attrs) {
+                    element.find("button").on("click", function (event) {
+                        var buttonText = event.target.innerText;
+                        var buttonGroup = event.target.getAttribute("data-group");
+                        if (buttonText == "Abort") {
+                            deferred[buttonGroup].reject("Aborted");
+                        } else {
+                            deferred[buttonGroup].resolve(buttonText);
+                        }
+                    });
+                },
+                controller: function ($scope, $element, $attrs) {
+                    this.promise = $q.all(promises).then(function (results) {
+                        return results.join();
+                    });
+                }
+            }
+        })
+        .directive("promiseObserver", function () {
+            return {
+                require: "^promiseWorker",
+                link: function (scope, element, attrs, ctrl) {
+                    ctrl.promise.then(function (result) {
+                        element.text(result);
+                    }, function (reason) {
+                        element.text(reason);
+                    });
+                }
+            }
+        })
+        .controller("defaultCtrl", function ($scope) {
+
+        });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+    <div class="well" promise-worker>
+        <div class="btn-group">
+            <button class="btn btn-primary" data-group="0">Heads</button>
+            <button class="btn btn-primary" data-group="0">Tails</button>
+            <button class="btn btn-primary" data-group="0">Abort</button>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-primary" data-group="1">Yes</button>
+            <button class="btn btn-primary" data-group="1">No</button>
+            <button class="btn btn-primary" data-group="1">Abort</button>
+        </div>
+        Outcome: <span promise-observer></span>
+    </div>
+</body>
+</html>

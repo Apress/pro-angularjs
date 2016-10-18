@@ -1,0 +1,57 @@
+<html ng-app="exampleApp">
+<head>
+    <title>Filters</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+            .controller("defaultCtrl", function ($scope) {
+                $scope.products = [
+                    { name: "Apples", category: "Fruit", price: 1.20, expiry: 10 },
+                    { name: "Bananas", category: "Fruit", price: 2.42, expiry: 7 },
+                    { name: "Pears", category: "Fruit", price: 2.02, expiry: 6 },
+
+                    { name: "Tuna", category: "Fish", price: 20.45, expiry: 3 },
+                    { name: "Salmon", category: "Fish", price: 17.93, expiry: 2 },
+                    { name: "Trout", category: "Fish", price: 12.93, expiry: 4 },
+
+                    { name: "Beer", category: "Drinks", price: 2.99, expiry: 365 },
+                    { name: "Wine", category: "Drinks", price: 8.99, expiry: 365 },
+                    { name: "Whiskey", category: "Drinks", price: 45.99, expiry: 365 }
+                ];
+            });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>
+                Products
+                <span class="label label-primary">{{products.length}}</span>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Category</td>
+                        <td>Expiry</td>
+                        <td class="text-right">Price</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="p in products">
+                        <td>{{p.name}}</td>
+                        <td>{{p.category}}</td>
+                        <td>{{p.expiry}}</td>
+                        <td class="text-right">{{p.price | currency}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

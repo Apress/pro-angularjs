@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>Expressions</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+        .controller("defaultCtrl", function ($scope) {
+            $scope.cities = ["London", "Paris", "New York"];
+        })
+        .directive("evalExpression", function($compile) {
+            return function (scope, element, attrs) {
+                var content = "<ul><li ng-repeat='city in cities'>{{city}}</li></ul>"
+                var listElem = angular.element(content);
+                var compileFn = $compile(listElem);
+                compileFn(scope);
+                element.append(listElem);
+            }
+        });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+    <div class="well">
+        <span eval-expression></span>
+    </div>
+</body>
+</html>

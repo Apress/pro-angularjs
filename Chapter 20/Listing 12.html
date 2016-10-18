@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>Promises</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+        .directive("promiseWorker", function($q) {
+            var deferred = $q.defer();
+            return {
+                link: function(scope, element, attrs) {
+                    element.find("button").on("click", function (event) {
+                        var buttonText = event.target.innerText;
+                        if (buttonText == "Abort") {
+                            deferred.reject("Aborted");
+                        } else {
+                            deferred.resolve(buttonText);
+                        }
+                    });
+                },
+                controller: function ($scope, $element, $attrs) {
+                    this.promise = deferred.promise;
+                }
+            }
+        })
+        .controller("defaultCtrl", function ($scope) {
+
+        });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+    <div class="well" promise-worker>
+        <button class="btn btn-primary">Heads</button>
+        <button class="btn btn-primary">Tails</button>
+        <button class="btn btn-primary">Abort</button>
+        Outcome: <span></span>
+    </div>
+</body>
+</html>

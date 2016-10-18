@@ -1,0 +1,24 @@
+<html ng-app="exampleApp">
+<head>
+    <title>Directives</title>
+    <script src="angular.js"></script>
+    <script>
+    angular.module("exampleApp", [])
+        .directive("demoDirective", function () {
+            return function (scope, element, attrs) {
+                var listElem = element.append("<ol>");
+                for (var i = 0; i < scope.names.length; i++) {
+                    listElem.append("<li>").append("<span>").text(scope.names[i]);
+                }
+            }
+        })
+        .controller("defaultCtrl", function ($scope) {
+            $scope.names = ["Apples", "Bananas", "Oranges"];
+        })              
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+    <h3>Fruit</h3>
+    <div demo-directive></div>
+</body>
+</html>

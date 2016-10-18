@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>Controllers</title>
+    <script src="angular.js"></script>
+    <script src="controllers.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+</head>
+<body ng-controller="topLevelCtrl">
+
+    <div class="well">
+        <h4>Top Level Controller</h4>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" 
+                        ng-click="reverseText()">Reverse</button>
+                <button class="btn btn-default" type="button"
+                        ng-click="changeCase()">Case</button>
+            </span>
+            <input class="form-control" ng-model="dataValue">
+        </div>
+    </div>
+
+    <div class="well" ng-controller="firstChildCtrl">
+        <h4>First Child Controller</h4>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button"
+                        ng-click="reverseText()">Reverse</button>
+                <button class="btn btn-default" type="button"
+                        ng-click="changeCase()">Case</button>
+            </span>
+            <input class="form-control" ng-model="dataValue">
+        </div>
+    </div>    
+
+    <div class="well" ng-controller="secondChildCtrl">
+        <h4>Second Child Controller</h4>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button"
+                        ng-click="reverseText()">Reverse</button>
+                <button class="btn btn-default" type="button"
+                        ng-click="changeCase()">Case</button>
+                <button class="btn btn-default" type="button"
+                        ng-click="shiftFour()">Shift</button>
+            </span>
+            <input class="form-control" ng-model="dataValue">
+        </div>
+    </div>    
+</body>
+</html>

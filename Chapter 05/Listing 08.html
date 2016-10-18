@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Example</title>
+        <script src="angular.js"></script>
+        <script type="text/javascript">
+            var myGlobalVar = "apples";
+
+            function myFunc(name) {
+                var myLocalVar = "sunny";
+                return ("Hello " + name + ". Today is " + myLocalVar + ".");
+            };
+            console.log(myFunc("Adam"));
+        </script>
+        <script type="text/javascript">
+            console.log("I like " + myGlobalVar);
+        </script>
+    </head>
+    <body>
+        This is a simple example
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<style>
+    .ng-invalid { background-color: lightpink; }
+    .ng-valid { background-color: lightgreen; }
+    span.error { color: red; font-weight: bold; }
+</style>
+
+<h2>Check out now</h2>
+<p>Please enter your details, and we'll ship your goods right away!</p>
+
+<form name="shippingForm" novalidate>
+    <div class="well">
+        <h3>Ship to</h3>
+        <div class="form-group">
+            <label>Name</label>
+            <input name="name" class="form-control" 
+                ng-model="data.shipping.name" required />
+            <span class="error" ng-show="shippingForm.name.$error.required">
+                Please enter a name
+            </span>
+        </div>
+
+        <h3>Address</h3>
+
+        <div class="form-group">
+            <label>Street Address</label>
+            <input name="street" class="form-control" 
+                ng-model="data.shipping.street" required />
+            <span class="error" ng-show="shippingForm.street.$error.required">
+                Please enter a street address
+            </span>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary">Complete order</button>
+        </div>
+    </div>
+</form>

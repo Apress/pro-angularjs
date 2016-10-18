@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Example</title>
+    <script src="angular.js"></script>
+    <script type="text/javascript">
+    
+        var myData = {
+            name: "Adam",
+        };
+
+        console.log("Var: " + myData.weather);
+        console.log("Prop: " + ("weather" in myData));
+
+        myData.weather = "sunny";
+        console.log("Var: " + myData.weather);
+        console.log("Prop: " + ("weather" in myData));
+        
+        myData.weather = null;
+        console.log("Var: " + myData.weather);            
+        console.log("Prop: " + ("weather" in myData));
+
+    </script>        
+</head>
+<body>
+    This is a simple example
+</body>
+</html>

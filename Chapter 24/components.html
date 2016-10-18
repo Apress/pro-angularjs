@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>Components</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+        .controller("defaultCtrl", function ($scope, $rootElement) {
+            var counter = 0;
+
+            var logClick = function ($log, $exceptionHandler, message) {
+                if (counter == 0) {
+                    $log.log(message);
+                    counter++;
+                } else {
+                    $exceptionHandler("Already clicked");
+                }
+            }
+
+            $scope.handleClick = function () {
+                var localVars = { message: "Button Clicked" };
+                $rootElement.injector().invoke(logClick, null, localVars);
+            };
+        });
+    </script>
+
+
+
+</head>
+<body ng-controller="defaultCtrl">
+    <div class="well">
+        <button class="btn btn-primary" ng-click="handleClick()">Click Me!</button>
+    </div>
+</body>
+</html>

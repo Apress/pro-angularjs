@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>DOM API Services</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+        .controller("defaultCtrl", function ($scope, $window, $document) {
+            $document.find("button").on("click", function (event) {
+                $window.alert(event.target.innerText);
+            });
+        });
+    </script>
+</head>
+<body ng-controller="defaultCtrl" class="well">
+    <button class="btn btn-primary">Click Me</button>
+</body>
+</html>

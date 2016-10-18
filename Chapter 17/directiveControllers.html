@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>Directive Controllers</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script type="text/ng-template" id="productTemplate">
+        <td>{{item.name}}</td>
+        <td><input ng-model='item.quantity' /></td>
+    </script>
+    <script type="text/ng-template" id="resetTemplate">
+        <td colspan="2"><button ng-click="reset()">Reset</button></td>
+    </script>
+    <script>
+        angular.module("exampleApp", [])
+        .controller("defaultCtrl", function ($scope) {
+            $scope.products = [{ name: "Apples", price: 1.20, quantity: 2 },
+                { name: "Bananas", price: 2.42, quantity: 3 },
+                { name: "Pears", price: 2.02, quantity: 1 }];
+        })
+        .directive("productItem", function () {
+            return {
+                template: document.querySelector("#productTemplate").outerText,
+                require: "^productTable",
+                link: function (scope, element, attrs, ctrl) {
+                    scope.$watch("item.quantity", function () {
+                        ctrl.updateTotal();
+                    });
+                }
+            }
+        })
+        .directive("productTable", function () {
+            return {
+                transclude: true,
+                scope: { value: "=productTable", data: "=productData" },
+                controller: function ($scope, $element, $attrs) {
+                    this.updateTotal = function () {
+                        var total = 0;
+                        for (var i = 0; i < $scope.data.length; i++) {
+                            total += Number($scope.data[i].quantity);
+                        }
+                        $scope.value = total;
+                    }
+                }
+            }
+        })
+        .directive("resetTotals", function () {
+            return {
+                scope: { data: "=productData", propname: "@propertyName" },
+                template: document.querySelector("#resetTemplate").outerText,
+                require: "^productTable",
+                link: function (scope, element, attrs, ctrl) {
+                    scope.reset = function () {
+                        for (var i = 0; i < scope.data.length; i++) {
+                            scope.data[i][scope.propname] = 0;
+                        }
+                        ctrl.updateTotal();
+                    }
+                }
+
+            }
+        });
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table class="table table-striped" product-table="totalValue"
+                   product-data="products" ng-transclude>
+                <tr><th>Name</th><th>Quantity</th></tr>
+                <tr ng-repeat="item in products" product-item></tr>
+                <tr><th>Total:</th><td>{{totalValue}}</td></tr>
+                <tr reset-totals product-data="products" property-name="quantity"></tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

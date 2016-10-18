@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>Directives</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+            .controller("defaultCtrl", function ($scope) {
+
+                $scope.todos = [
+                    { action: "Get groceries", complete: false },
+                    { action: "Call plumber", complete: false },
+                    { action: "Buy running shoes", complete: true },
+                    { action: "Buy flowers", complete: false },
+                    { action: "Call family", complete: false }];
+
+                $scope.buttonNames = ["Red", "Green", "Blue"];
+
+                $scope.data = {
+                    rowColor: "Blue",
+                    columnColor: "Green"
+                };
+
+                $scope.handleEvent = function (e) {
+                    console.log("Event type: " + e.type);
+                    $scope.data.columnColor = e.type == "mouseover" ? "Green" : "Blue";
+                }
+            });
+    </script>
+    <style>
+        .Red { background-color: lightcoral; }
+        .Green { background-color: lightgreen; }
+        .Blue { background-color: lightblue; }
+    </style>
+</head>
+<body>
+    <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+        <h3 class="panel-header">To Do List</h3>
+
+        <div class="well">
+            <span ng-repeat="button in buttonNames">
+                <button class="btn btn-info" ng-click="data.rowColor = button">
+                    {{button}}
+                </button>
+            </span>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr><th>#</th><th>Action</th><th>Done</th></tr>
+            </thead>
+            <tr ng-repeat="item in todos" ng-class="data.rowColor"
+                ng-mouseenter="handleEvent($event)"
+                ng-mouseleave="handleEvent($event)">
+                <td>{{$index + 1}}</td>
+                <td>{{item.action}}</td>
+                <td ng-class="data.columnColor">{{item.complete}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

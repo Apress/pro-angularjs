@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example</title>
+    <script src="angular.js"></script>
+    <script type="text/javascript">
+        var myData = {
+            name: "Adam",
+            weather: "sunny",
+            printMessages: function () {
+                console.log("Hello " + this.name + ". ");
+                console.log("Today is " + this.weather + ".");
+            }
+        };
+
+        var myExtendedObject = {
+            city: "London"
+        };
+
+        angular.extend(myExtendedObject, myData);
+
+        console.log(myExtendedObject.name);
+        console.log(myExtendedObject.city);
+        
+    </script>
+</head>
+<body>
+    This is a simple example
+</body>
+</html>

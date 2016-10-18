@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+    <title>Forms</title>
+    <script src="angular.js"></script>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script>
+        angular.module("exampleApp", [])
+            .controller("defaultCtrl", function ($scope) {
+
+                $scope.addUser = function (userDetails) {
+                    if (myForm.$valid) {
+                        $scope.message = userDetails.name
+                            + " (" + userDetails.email + ") (" 
+                            + userDetails.agreed + ")";
+                    } else {
+                        $scope.showValidation = true;
+                    }
+                }
+
+                $scope.message = "Ready";
+
+                $scope.getError = function (error) {
+                    if (angular.isDefined(error)) {
+                        if (error.required) {
+                            return "Please enter a value";
+                        } else if (error.email) {
+                            return "Please enter a valid email address";
+                        }
+                    }
+                }
+            });
+    </script>
+    <style>
+        form.validate .ng-invalid-required.ng-dirty { background-color: lightpink; }
+        form.validate .ng-invalid-email.ng-dirty { 
+            background-color: lightgoldenrodyellow; }
+        div.error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+        <form name="myForm" novalidate ng-submit="addUser(newUser)"
+              ng-class="showValidation ? 'validate' : ''">
+            <div class="well">
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input name="userEmail" type="email" class="form-control"
+                           required ng-model="newUser.email">
+                    <div class="error" ng-show="showValidation">
+                        {{getError(myForm.userEmail.$error)}}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">OK</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

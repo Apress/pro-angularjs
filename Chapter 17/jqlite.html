@@ -1,0 +1,35 @@
+﻿<html ng-app="exampleApp">
+<head>
+    <title>Directives</title>
+    <script src="angular.js"></script>
+    <style>
+        .bold { font-weight: bold; }
+    </style>
+    <script>
+        angular.module("exampleApp", [])
+            .directive("demoDirective", function () {
+                return function (scope, element, attrs) {
+                    var listElem = angular.element("<ol>");
+                    element.append(listElem);
+                    for (var i = 0; i < scope.names.length; i++) {
+                        listElem.append(angular.element("<li>")
+                            .append(angular.element("<span>").text(scope.names[i])));
+                    }
+                    var buttons = element.find("button");
+                    buttons.on("click", function (e) {
+                        element.find("li").toggleClass("bold");
+                    });
+                }
+            })
+            .controller("defaultCtrl", function ($scope) {
+                $scope.names = ["Apples", "Bananas", "Oranges"];
+            })
+    </script>
+</head>
+<body ng-controller="defaultCtrl">
+    <h3>Fruit</h3>
+    <div demo-directive>
+        <button>Click Me</button>
+    </div>
+</body>
+</html>
