@@ -48,7 +48,10 @@
             }
 
             $scope.addNewItem = function(actionText) {
-                $scope.todo.items.push({ action: actionText, done: false});
+                if(newItem != null)
+                    $scope.todo.items.push({
+                        action : newItem , done : false
+                    });
             }
 
         });
